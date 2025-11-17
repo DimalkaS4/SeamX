@@ -1,0 +1,47 @@
+<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50 border-b-4 border-primary-blue dark:border-blue-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex justify-between items-center">
+        <!-- Logo/Brand -->
+        <div class="flex items-center flex-shrink-0">
+            <div class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-primary-blue dark:text-blue-400 tracking-tight">SeamX</div>
+        </div>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden md:flex space-x-1 lg:space-x-2 items-center" role="navigation" aria-label="Main Navigation">
+            <a href="index.html" class="nav-tab px-2 sm:px-3 py-2 text-xs sm:text-sm lg:text-base font-semibold text-secondary-gray dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue">Homepage</a>
+            <a href="members.html" class="nav-tab px-2 sm:px-3 py-2 text-xs sm:text-sm lg:text-base font-semibold text-secondary-gray dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue">Team Members</a>
+            <a href="projects.html" class="nav-tab px-2 sm:px-3 py-2 text-xs sm:text-sm lg:text-base font-semibold text-secondary-gray dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue">Group Projects</a>
+            <a href="portfolios.html" class="nav-tab px-2 sm:px-3 py-2 text-xs sm:text-sm lg:text-base font-semibold text-secondary-gray dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue">Portfolios</a>
+            <a href="contact.html" class="nav-tab px-2 sm:px-3 py-2 text-xs sm:text-sm lg:text-base font-semibold text-secondary-gray dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue">Contact</a>
+            
+            <!-- Theme Toggle Button -->
+            <div class="ml-2 lg:ml-4 flex items-center">
+                <button id="theme-toggle" class="p-2 rounded-full text-secondary-gray dark:text-accent-orange hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-200" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg id="sun-icon" class="w-5 h-5 lg:w-6 lg:h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="moon-icon" class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Button (Hamburger) -->
+        <div class="md:hidden flex items-center space-x-3">
+            <button id="theme-toggle-mobile" class="p-2 rounded-full text-secondary-gray dark:text-accent-orange hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-200" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <svg id="sun-icon-mobile" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="moon-icon-mobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+            <button id="mobile-menu-button" class="p-2 text-secondary-gray dark:text-gray-200 hover:text-primary-blue hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue" aria-label="Toggle menu" aria-expanded="false" title="Toggle navigation menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu Dropdown -->
+    <nav id="mobile-menu" class="hidden md:hidden bg-gray-50 dark:bg-gray-700 border-t-2 border-primary-blue dark:border-blue-500" aria-hidden="true">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="nav-tab-mobile w-full text-left block px-3 py-3 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">Homepage</a>
+            <a href="members.html" class="nav-tab-mobile w-full text-left block px-3 py-3 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">Team Members</a>
+            <a href="projects.html" class="nav-tab-mobile w-full text-left block px-3 py-3 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">Group Projects</a>
+            <a href="portfolios.html" class="nav-tab-mobile w-full text-left block px-3 py-3 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">Portfolios</a>
+            <a href="contact.html" class="nav-tab-mobile w-full text-left block px-3 py-3 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">Contact</a>
+        </div>
+    </nav>
+</header>

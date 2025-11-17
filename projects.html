@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Group Projects</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} .video-container{padding-bottom:56.25%;} }
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa; /* Brighter blue for contrast */
+            --color-secondary-gray: #e5e7eb; /* Light text */
+            --color-background-light: #1f2937; /* Dark background */
+            --color-accent-orange: #fbbf24; /* Brighter orange for pop */
+            --color-dark-bg: #111827;
+        }
+
+        /* CSS for Smooth Page Transition */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .tab-active { 
+            background-color: var(--color-accent-orange); 
+            color: var(--color-dark-bg); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            animation: slideInDown 0.4s ease-out;
+        }
+        .nav-tab-mobile { 
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-tab-mobile:hover {
+            border-left-color: var(--color-primary-blue);
+            background-color: rgba(30, 64, 175, 0.05);
+            transform: translateX(4px);
+        }
+        .tab-active-mobile { 
+            background-color: #E5E7EB; 
+            border-left-color: var(--color-primary-blue);
+            animation: slideInDown 0.3s ease-out;
+        }
+        .member-card, .project-card { 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .member-card:nth-child(1), .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .member-card:nth-child(2), .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .member-card:nth-child(3), .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .member-card:nth-child(4), .project-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .member-card:hover, .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+        }
+        
+        .portfolio-divider { 
+            height: 3px; 
+            background-color: var(--color-accent-orange); 
+            width: 100px; 
+            margin: 1rem 0; 
+            border-radius: 9999px;
+            animation: scaleIn 0.6s ease-out;
+        }
+        
+        /* Responsive video container for embedded videos (16:9 aspect ratio) */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease-in-out;
+            animation: slideInUp 0.6s ease-out;
+        }
+        .video-container:hover {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Enhanced image transitions */
+        img {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease-in-out;
+        }
+        img:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+        
+        /* Navigation link transitions */
+        a {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-tab {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent-orange);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-tab:hover::after {
+            width: 100%;
+        }
+        .nav-tab:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Button transitions */
+        button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Section heading animations */
+        h1, h2, h3 {
+            animation: slideInDown 0.6s ease-out;
+        }
+        
+        /* Paragraph transitions */
+        p {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Status badge animations */
+        [class*="bg-green"], [class*="bg-yellow"] {
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+    
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 3. GROUP PROJECTS SECTION -->
+        <section id="projects">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-10">Our Group Projects Showcase</h1>
+            <div class="portfolio-divider"></div>
+            <p class="text-lg text-secondary-gray mb-8">
+                Highlighting our core initiatives in advanced materials and entrepreneurial apparel design.
+            </p>
+
+            <div class="grid grid-cols-1 gap-8">
+                
+                <!-- Project 1: Spider Silk Video Competition (IFRAME EMBED) -->
+                <div class="project-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">Materials Science & Media</span>
+                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Next Gen Materials: Spider Silk Biopolymer Video</h2>
+                    <p class="text-secondary-gray text-sm mb-3">
+                        We developed a professional video clip focusing on the technical potential of **Spider Silk** as a next-generation biomaterial for evolving industries.
+                    </p>
+                    <p class="text-sm font-medium text-primary-blue mb-4">
+                        **Competition:** Organized by the Department of Materials Science & Engineering, University of Moratuwa.
+                    </p>
+                    
+                    <!-- Video Thumbnail with YouTube Link -->
+                    <a href="https://youtu.be/yyVdgyE9KIU?si=zgT9NzEVf9EWRxaN" 
+                       target="_blank" 
+                       class="block relative mt-4 mb-4 group cursor-pointer">
+                        <div class="relative w-full rounded-xl overflow-hidden shadow-xl">
+                            <!-- YouTube Thumbnail (auto-generated by YouTube) -->
+                            <img src="https://img.youtube.com/vi/yyVdgyE9KIU/maxresdefault.jpg" 
+                                 alt="Spider Silk Biopolymer Video Thumbnail"
+                                 class="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                                 onerror="this.src='https://img.youtube.com/vi/yyVdgyE9KIU/hqdefault.jpg'">
+                            
+                            <!-- Dark Overlay on Hover -->
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                            
+                            <!-- YouTube Play Button Icon -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="bg-red-600 rounded-full p-4 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-red-700 shadow-2xl">
+                                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center text-sm text-gray-600 dark:text-gray-400 mt-2 group-hover:text-primary-blue transition-colors">
+                            Click to watch on YouTube →
+                        </p>
+                    </a>
+                
+                <!-- Project 2: STUD Designs Clothing Brand -->
+                <div class="project-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">Entrepreneurship & Apparel Design</span>
+                        <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Planning Phase</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">"STUD Designs" Clothing Brand Launch</h2>
+                    <p class="text-secondary-gray text-sm mb-3">
+                        A collaborative entrepreneurial effort to launch a modern clothing brand specializing in high-quality men's and women's T-shirts, focusing on optimized production and unique digital marketing strategies.
+                    </p>
+                    
+                    <!-- STUD DESIGNS VISUALS -->
+                    <div class="mt-4 mb-4 text-center">
+                        <h3 class="text-lg font-semibold text-primary-blue mb-2">Brand Identity</h3>
+                        
+                        <!-- Logo -->
+                        <img src="images/STUD-logo.jpg" 
+                             onerror="this.src='https://placehold.co/250x100/1e40af/FFFFFF?text=STUD+LOGO'"
+                             class="w-48 mx-auto mb-4 border-b-2 pb-2" 
+                             alt="STUD Designs Logo">
+
+                        <!-- Cover Image / Brand Visual -->
+                        <img src="images/STUD-cover.png" 
+                             onerror="this.src='https://placehold.co/1200x500/374151/FFFFFF?text=STUD+Designs+Cover+Visual'"
+                             class="w-2/3 rounded-lg shadow-md object-cover mx-auto" 
+                             alt="STUD Designs Brand Visual">
+                    </div>
+                    <!-- END STUD DESIGNS VISUALS -->
+
+                    <p class="text-xs text-gray-400 dark:text-gray-300">Status: Business Planning and Design Development</p>
+                    
+                    <div class="mt-4">
+                        <a href="YOUR_STUD_DESIGNS_WEBSITE_LINK_HERE" target="_blank" class="text-primary-blue hover:text-accent-orange font-medium text-sm transition duration-150">
+                            View Website/Platform » 
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script src="assets/theme.js"></script>
+</body>
+</html>

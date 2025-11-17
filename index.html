@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Homepage</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} .portfolio-divider{width:72px;} }
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa; /* Brighter blue for contrast */
+            --color-secondary-gray: #e5e7eb; /* Light text */
+            --color-background-light: #1f2937; /* Dark background */
+            --color-accent-orange: #fbbf24; /* Brighter orange for pop */
+            --color-dark-bg: #111827;
+        }
+
+        /* CSS for Smooth Page Transition */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .tab-active { background-color: var(--color-accent-orange); color: var(--color-dark-bg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); animation: slideInDown 0.4s ease-out; }
+        .nav-tab-mobile { border-left: 4px solid transparent; transition: all 0.3s ease-in-out; }
+        .nav-tab-mobile:hover { border-left-color: var(--color-primary-blue); background-color: rgba(30, 64, 175, 0.05); transform: translateX(4px); }
+        .tab-active-mobile { background-color: #E5E7EB; border-left-color: var(--color-primary-blue); animation: slideInDown 0.3s ease-out; }
+        .member-card, .project-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); animation: slideInUp 0.5s ease-out forwards; opacity: 0; }
+        .member-card:nth-child(1), .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .member-card:nth-child(2), .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .member-card:nth-child(3), .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .member-card:nth-child(4), .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .member-card:hover, .project-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important; }
+        .portfolio-divider { height: 3px; background-color: var(--color-accent-orange); width: 100px; margin: 1rem 0; border-radius: 9999px; animation: scaleIn 0.6s ease-out; }
+        .group-photo-container { width: 100%; aspect-ratio: 3 / 2; margin: 0 auto; position: relative; animation: slideInUp 0.6s ease-out; }
+        .group-photo-img { width: 100%; height: 100%; display: block; object-fit: contain; transition: transform 0.4s ease-in-out; }
+        .group-photo-img:hover { transform: scale(1.02); }
+        
+        /* Navigation and button transitions */
+        .nav-tab { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        .nav-tab::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--color-accent-orange); transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-tab:hover::after { width: 100%; }
+        .nav-tab:hover { transform: translateY(-2px); }
+        button { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        button:hover { transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+        h1, h2, h3 { animation: slideInDown 0.6s ease-out; }
+        img { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease-in-out; }
+        img:hover { transform: scale(1.02); filter: brightness(1.05); }
+        a { transition: all 0.3s ease-in-out; }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 1. HOMEPAGE / HERO SECTION -->
+        <section id="team">
+            <div class="text-center bg-gradient-to-br from-primary-blue to-blue-900 p-8 sm:p-16 rounded-3xl shadow-2xl text-white mb-12">
+                <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 animate-fade-in-down">Engineering Tomorrow's Textiles</h1>
+                <p class="text-xl sm:text-2xl font-light mb-8 max-w-3xl mx-auto opacity-90">
+                    We are **SeamX**, four Undergraduate Engineers from UoM, dedicated to driving innovation in material science, apparel manufacturing, and sustainable textile technology.
+                </p>
+                <div class="space-y-4 sm:space-y-0 sm:space-x-6 flex flex-col sm:flex-row items-center sm:items-stretch">
+                    <a href="projects.html" class="bg-accent-orange text-dark-bg font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-yellow-500 transition duration-300 transform hover:scale-105 w-full sm:w-auto text-center">
+                        View Our Work
+                    </a>
+                    <a href="contact.html" class="bg-white text-primary-blue font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-gray-200 transition duration-300 transform hover:scale-105 w-full sm:w-auto text-center">
+                        Collaborate With Us
+                    </a>
+                </div>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center mt-12">
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-xl border-b-4 border-primary-blue hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-primary-blue">4</div>
+                    <div class="text-sm font-semibold text-secondary-gray dark:text-gray-300 mt-1">Dedicated Members</div>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-xl border-b-4 border-accent-orange hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-accent-orange">2</div>
+                    <div class="text-sm font-semibold text-secondary-gray dark:text-gray-300 mt-1">Core Projects</div>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-xl border-b-4 border-primary-blue hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-primary-blue">30+</div>
+                    <div class="text-sm font-semibold text-secondary-gray dark:text-gray-300 mt-1">Individual Portfolios</div>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-xl border-b-4 border-accent-orange hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-accent-orange">STUD Designs</div>
+                    <div class="text-sm font-semibold text-secondary-gray dark:text-gray-300 mt-1">Team Brand</div>
+                </div>
+            </div>
+
+            <!-- Group Photo Section -->
+            <div class="mt-12 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Our Team, In Focus</h2>
+                
+                <div class="group-photo-container rounded-xl shadow-2xl border-4 border-accent-orange mx-auto overflow-hidden max-w-full">
+                    <!-- PATH CORRECTION: Pointing to images/ folder -->
+                    <img src="images/group_photo.png" 
+                         onerror="this.src='https://placehold.co/1200x800/1e40af/FFFFFF?text=Group+Photo+Placeholder'"
+                        class="group-photo-img w-full h-auto" 
+                         alt="Group Photo of Textile Engineering Undergraduates">
+                </div>
+                
+               
+            </div>
+            
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mt-12 mb-6 border-b-2 border-primary-blue pb-2">Our Collective Vision</h2>
+            <p class="text-lg text-secondary-gray">
+                As **SeamX**, our collective goal is to bridge the gap between engineering theory and practical application in the textile and apparel sector. We leverage our diverse skills—from digital design and analytics to chemistry and manufacturing strategy—to develop solutions that are efficient, sustainable, and forward-looking. We are proud to represent the Department of Textile & Apparel Engineering at the University of Moratuwa.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script src="assets/theme.js"></script>
+</body>
+</html>

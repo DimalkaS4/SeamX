@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Contact</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                        'pink-500': '#EC4899',
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} .contact-card{padding:1rem;} }
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --card-bg: #ffffff;
+            --card-fg: #374151;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa; 
+            --color-secondary-gray: #e5e7eb; 
+            --color-background-light: #1f2937; 
+            --color-accent-orange: #fbbf24; 
+            --card-bg: #111827;
+            --card-fg: #e5e7eb;
+            --color-dark-bg: #111827;
+        }
+        
+        /* CSS for Smooth Page Transition (for the whole page load) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* 1. Staggered Animation for Contact Cards */
+        @keyframes staggeredSlideIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-active { background-color: var(--color-accent-orange); color: var(--color-dark-bg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); }
+        .nav-tab-mobile { border-left: 4px solid transparent; }
+        .tab-active-mobile { background-color: #E5E7EB; border-left-color: var(--color-primary-blue); }
+        .member-card, .project-card { transition: all 0.3s ease-in-out; }
+        .portfolio-divider { height: 3px; background-color: var(--color-accent-orange); width: 100px; margin: 1rem 0; border-radius: 9999px; }
+
+        /* 2. Apply animation and staggering to cards */
+        .contact-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: staggeredSlideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0; /* Start invisible */
+            background-color: var(--card-bg);
+            color: var(--card-fg);
+        }
+        /* Staggering the animation delay for all cards in the grid structure */
+        .contact-card:nth-child(1) { animation-delay: 0.1s; }
+        .contact-card:nth-child(2) { animation-delay: 0.2s; }
+        .contact-card:nth-child(3) { animation-delay: 0.3s; }
+        .contact-card:nth-child(4) { animation-delay: 0.4s; }
+        .contact-card:nth-child(5) { animation-delay: 0.5s; }
+        .contact-card:nth-child(6) { animation-delay: 0.6s; }
+        .contact-card:nth-child(7) { animation-delay: 0.7s; }
+        .contact-card:nth-child(8) { animation-delay: 0.8s; }
+        .contact-card:nth-child(9) { animation-delay: 0.9s; }
+        .contact-card:nth-child(10) { animation-delay: 1.0s; }
+        .contact-card:nth-child(11) { animation-delay: 1.1s; }
+        .contact-card:nth-child(12) { animation-delay: 1.2s; }
+
+        /* Hover effect for a subtle lift (Light Mode Default) */
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        /* Dark Mode Hover Shadow Enhancement */
+        [data-theme='dark'] .contact-card:hover {
+            /* A darker shadow that blends better, plus a primary-blue glow for definition */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 15px rgba(96, 165, 250, 0.2); 
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 5. CONTACT SECTION -->
+        <section id="contact">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Contact & Collaboration</h1>
+            <div class="portfolio-divider"></div>
+            <p class="text-lg text-secondary-gray mb-10">
+                We are always open to connecting with industry professionals, researchers, and potential employers.
+            </p>
+
+            <!-- 5.1 TEAM CONTACTS (General) -->
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b pb-2">SeamX - General Contacts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                
+                <!-- Contact Card 1: Team Email -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-primary-blue mb-2">Team Email</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Send us an inquiry or project proposal.</p>
+                    <a href="mailto:uom.ta.group@example.com" class="text-accent-orange font-medium break-words block mt-2 hover:underline">uom.ta.group@example.com</a>
+                </div>
+                
+                <!-- Contact Card 2: Location -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-accent-orange hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-accent-orange mb-2">Our Location</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Department of Textile & Apparel Engineering</p>
+                    <p class="text-gray-700 dark:text-gray-300 font-medium break-words block mt-2">University of Moratuwa</p>
+                </div>
+                
+                <!-- Contact Card 3: LinkedIn (Team Link) -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-primary-blue mb-2">LinkedIn (Team)</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Connect with us professionally.</p>
+                    <a href="https://www.linkedin.com/in/uom-ta-group" target="_blank" class="text-accent-orange font-medium break-words block mt-2 hover:underline">linkedin.com/in/uom-ta-group</a>
+                </div>
+                
+                <!-- Contact Card 4: GitHub -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-accent-orange hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-accent-orange mb-2">GitHub (Code)</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Review our open-source code.</p>
+                    <a href="https://github.com/uom-ta-group" target="_blank" class="text-primary-blue font-medium break-words block mt-2 hover:underline">github.com/uom-ta-group</a>
+                </div>
+            </div>
+
+            <!-- 5.2 INDIVIDUAL CONTACT NUMBERS -->
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b pb-2">Individual Member Contact</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                
+                <!-- Individual 1: Dimalka -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-accent-orange hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-accent-orange mb-2">Dimalka Hettiarachchi</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">IT Specialist, Designer</p>
+                    <a href="tel:+94771112233" class="text-primary-blue font-medium break-words block mt-2 hover:underline">+94 77 111 2233</a>
+                </div>
+
+                <!-- Individual 2: Tuan -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-primary-blue mb-2">Tuan Pallie</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Business Analyst, Strategist</p>
+                    <a href="tel:+94772223344" class="text-accent-orange font-medium break-words block mt-2 hover:underline">+94 77 222 3344</a>
+                </div>
+
+                <!-- Individual 3: Udula -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-secondary-gray hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-secondary-gray mb-2">Udula Bimsara</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Creative Planner, Media</p>
+                    <a href="tel:+94773334455" class="text-primary-blue font-medium break-words block mt-2 hover:underline">+94 77 333 4455</a>
+                </div>
+                
+                <!-- Individual 4: Sulan -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-pink-500 hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-2">Sulan Gunawardena</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Data Analyst, Problem Solver</p>
+                    <a href="tel:+94774445566" class="text-accent-orange font-medium break-words block mt-2 hover:underline">+94 77 444 5566</a>
+                </div>
+            </div>
+
+            <!-- 5.3 STUD DESIGNS BRAND CONTACTS -->
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b pb-2">"STUD Designs" Brand Platforms</h2>
+            <p class="text-lg text-secondary-gray mb-8">Follow our entrepreneurial venture on these platforms.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- STUD Website -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-primary-blue mb-2">STUD Website</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Official eCommerce and Brand Site.</p>
+                    <a href="https://www.stud-designs.com" target="_blank" class="text-accent-orange font-medium break-words block mt-2 hover:underline">www.stud-designs.com</a>
+                </div>
+                
+                <!-- STUD LinkedIn -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-secondary-gray hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-secondary-gray mb-2">STUD LinkedIn</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">B2B and Business Development Updates.</p>
+                    <a href="https://www.linkedin.com/company/stud-designs" target="_blank" class="text-primary-blue font-medium break-words block mt-2 hover:underline">LinkedIn Page »</a>
+                </div>
+
+                <!-- STUD Facebook -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-primary-blue mb-2">STUD Facebook</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Community and Latest Collections.</p>
+                    <a href="https://www.facebook.com/studdesigns" target="_blank" class="text-accent-orange font-medium break-words block mt-2 hover:underline">Facebook Page »</a>
+                </div>
+
+                <!-- STUD Instagram -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-secondary-gray hover:shadow-2xl transition duration-300 contact-card">
+                    <h3 class="text-xl font-bold text-secondary-gray mb-2">STUD Instagram</h3>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Visuals, Lifestyle, and Fashion Content.</p>
+                    <a href="https://www.instagram.com/studdesigns" target="_blank" class="text-primary-blue font-medium break-words block mt-2 hover:underline">Instagram Page »</a>
+                </div>
+            </div>
+            
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script src="assets/theme.js"></script>
+</body>
+</html>

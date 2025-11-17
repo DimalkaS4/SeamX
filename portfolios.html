@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Portfolios</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                        'pink-500': '#EC4899',
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} .portfolio-divider{width:72px;} }
+
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa; /* Brighter blue for contrast */
+            --color-secondary-gray: #e5e7eb; /* Light text */
+            --color-background-light: #1f2937; /* Dark background */
+            --color-accent-orange: #fbbf24; /* Brighter orange for pop */
+            --color-dark-bg: #111827;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* CSS for Smooth Page Transition */
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        
+        h1, h2, h3 {
+            animation: slideInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tab-active { 
+            background-color: var(--color-accent-orange); 
+            color: var(--color-dark-bg); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); 
+        }
+        
+        .nav-tab {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary-blue);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+        
+        .nav-tab:hover::after {
+            width: 100%;
+        }
+        
+        .nav-tab-mobile { 
+            border-left: 4px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-tab-mobile:hover {
+            transform: translateX(4px);
+        }
+        
+        .tab-active-mobile { 
+            background-color: #E5E7EB; 
+            border-left-color: var(--color-primary-blue); 
+        }
+        
+        .member-card { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .member-card:nth-child(1) { animation-delay: 0.1s; }
+        .member-card:nth-child(2) { animation-delay: 0.2s; }
+        .member-card:nth-child(3) { animation-delay: 0.3s; }
+        .member-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .member-card img {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .member-card:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        
+        .project-card { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Portfolio buttons: use CSS variables so dark mode is respected
+           and toggling a single `active` class controls the highlight. */
+        .portfolio-btn {
+            transition: all 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: var(--btn-bg, #ffffff);
+            color: var(--btn-fg, var(--color-secondary-gray));
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+            border-radius: .5rem;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .portfolio-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.98);
+        }
+
+        /* Default variables for light/dark - can be overridden by data-theme */
+        :root {
+            --btn-bg: #ffffff;
+            --btn-fg: var(--color-secondary-gray);
+        }
+        [data-theme='dark'] {
+            --btn-bg: transparent;
+            --btn-fg: var(--color-secondary-gray);
+        }
+
+        /* Active state - highlights the selected member and adapts to theme */
+        .portfolio-btn.active {
+            background-color: var(--color-primary-blue);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(16,24,40,0.12);
+            transform: translateY(-2px);
+        }
+        /* Small focus ring for accessibility */
+        .portfolio-btn:focus {
+            outline: 3px solid rgba(99,102,241,0.12);
+            outline-offset: 2px;
+        }
+        
+        .portfolio-content {
+            animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .portfolio-divider { 
+            height: 3px; 
+            background-color: var(--color-accent-orange); 
+            width: 100px; 
+            margin: 1rem 0; 
+            border-radius: 9999px;
+            animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        a {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        a:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 4. INDIVIDUAL PORTFOLIOS SECTION -->
+        <section id="portfolios">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Individual Portfolios</h1>
+            <div class="portfolio-divider"></div>
+            <p class="text-lg text-secondary-gray mb-8">
+                Detailed breakdowns of individual contributions, personal academic achievements, and solo projects. Click a member's name below to switch the view.
+            </p>
+
+            <div class="flex flex-wrap gap-4 mb-8">
+                <!-- Portfolio Buttons (JS toggles the `active` class) -->
+                <button onclick="showPortfolio('dh')" id="btn-dh" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 active w-full sm:w-auto text-center" aria-pressed="true">Dimalka Hettiarachchi</button>
+                <button onclick="showPortfolio('tp')" id="btn-tp" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Tuan Pallie</button>
+                <button onclick="showPortfolio('ub')" id="btn-ub" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Udula Bimsara</button>
+                <button onclick="showPortfolio('sg')" id="btn-sg" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Sulan Gunawardena</button>
+            </div>
+
+            <!-- Portfolio Content 1: Dimalka Hettiarachchi (Digital Strategy) -->
+            <div id="portfolio-dh" class="portfolio-content bg-white dark:bg-gray-800 p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
+                <h2 class="text-3xl font-bold text-accent-orange mb-4">Dimalka Hettiarachchi: Digital Strategy & R&D Portfolio (241083D)</h2>
+                <div class="portfolio-divider"></div>
+                
+                <div class="flex flex-col-reverse md:flex-row gap-6 mt-6">
+                    <!-- Text Content (Left/Top) -->
+                    <div class="md:w-3/4">
+                        <p class="text-secondary-gray mb-6">
+                            **Key Skills:** Web Development, UI/UX Design, Graphic Design, Video Editing, Social Media Management.
+                        </p>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-6 mb-3">Solo Project: Interactive Portfolio Website Development</h3>
+                        <p class="text-sm text-secondary-gray">
+                            Designed and coded the entire group portfolio website, focusing on mobile responsiveness, Tailwind CSS optimization, and smooth single-page application navigation (using the code you are reading now!).
+                        </p>
+                        <a href="https://www.linkedin.com/in/dimalka-hettiarachchi-31844435b/" target="_blank" class="block mt-4 text-center md:text-left text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
+                    </div>
+                    
+                    <!-- Photo (Right/Bottom) -->
+                    <div class="md:w-1/4 flex-shrink-0">
+                        <img src="images/dimalka.jpg" 
+                             onerror="this.src='https://placehold.co/150x150/f59e0b/FFFFFF?text=DH+Photo'" 
+                             class="w-32 h-32 rounded-lg object-cover border-4 border-accent-orange mx-auto md:mx-0 md:ml-auto" 
+                             alt="Dimalka Hettiarachchi Photo">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Content 2: Tuan Pallie (Apparel Manufacturing) -->
+            <div id="portfolio-tp" class="portfolio-content hidden bg-white dark:bg-gray-800 p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
+                <h2 class="text-3xl font-bold text-primary-blue mb-4">Tuan Pallie: Apparel Manufacturing & Strategy Portfolio (241051E)</h2>
+                <div class="portfolio-divider"></div>
+                
+                <div class="flex flex-col-reverse md:flex-row gap-6 mt-6">
+                    <!-- Text Content (Left/Top) -->
+                    <div class="md:w-3/4">
+                        <p class="text-secondary-gray mb-6">
+                            **Key Skills:** Project Management, Process Optimization, Time Management, Quantitative Analysis.
+                        </p>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-6 mb-3">Solo Project: Line Balancing and Efficiency Improvement</h3>
+                        <p class="text-sm text-secondary-gray">
+                            Conducted a detailed line balancing exercise for a jacket production cell, achieving a 15% improvement in line efficiency and a 10% reduction in operator idle time by optimizing the sequential task flow and skill matrix application.
+                        </p>
+                        <a href="https://www.linkedin.com/in/tuan-ehshan-pallie-1729a017b/" target="_blank" class="block mt-4 text-center md:text-left text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
+                    </div>
+                    
+                    <!-- Photo (Right/Bottom) -->
+                    <div class="md:w-1/4 flex-shrink-0">
+                        <img src="images/tuan.png" 
+                             onerror="this.src='https://placehold.co/150x150/1e40af/FFFFFF?text=TP+Photo'" 
+                             class="w-32 h-32 rounded-lg object-cover border-4 border-primary-blue mx-auto md:mx-0 md:ml-auto" 
+                             alt="Tuan Pallie Photo">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Content 3: Udula Bimsara (Chemistry) -->
+            <div id="portfolio-ub" class="portfolio-content hidden bg-white dark:bg-gray-800 p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
+                <h2 class="text-3xl font-bold text-secondary-gray mb-4">Udula Bimsara: Textile Chemical Processing Portfolio (241041A)</h2>
+                <div class="portfolio-divider"></div>
+                
+                <div class="flex flex-col-reverse md:flex-row gap-6 mt-6">
+                    <!-- Text Content (Left/Top) -->
+                    <div class="md:w-3/4">
+                        <p class="text-secondary-gray mb-6">
+                            **Key Skills:** Research and Experimentation, Report Writing, Chemical Handling Protocols, Data Interpretation.
+                        </p>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-6 mb-3">Solo Project: Natural Indigo Waste Valorization</h3>
+                        <p class="text-sm text-secondary-gray">
+                            Researched and implemented a chemical process to recover and reuse indigo dye sludge from denim washing, reducing the overall toxic load of the effluent and creating a novel secondary pigment for fabric coating.
+                        </p>
+                        <a href="https://www.linkedin.com/in/udula-bimsara-95a484389/" target="_blank" class="block mt-4 text-center md:text-left text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
+                    </div>
+                    
+                    <!-- Photo (Right/Bottom) -->
+                    <div class="md:w-1/4 flex-shrink-0">
+                        <img src="images/udula.jpg" 
+                             onerror="this.src='https://placehold.co/150x150/374151/FFFFFF?text=UB+Photo'" 
+                             class="w-32 h-32 rounded-lg object-cover border-4 border-secondary-gray mx-auto md:mx-0 md:ml-auto" 
+                             alt="Udula Bimsara Photo">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Content 4: Sulan Gunawardena (CAD) -->
+            <div id="portfolio-sg" class="portfolio-content hidden bg-white dark:bg-gray-800 p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
+                <h2 class="text-3xl font-bold text-pink-500 mb-4">Sulan Gunawardena: Digital Pattern Making & Fit Portfolio (241085K)</h2>
+                <div class="portfolio-divider"></div>
+                
+                <div class="flex flex-col-reverse md:flex-row gap-6 mt-6">
+                    <!-- Text Content (Left/Top) -->
+                    <div class="md:w-3/4">
+                        <p class="text-secondary-gray mb-6">
+                            **Key Skills:** Digital Prototyping, Technical Drawing, Presentation Skills, Quality Assurance.
+                        </p>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-6 mb-3">Solo Project: 3D Virtual Fit for Activewear</h3>
+                        <p class="text-sm text-secondary-gray">
+                            Created a customized 3D avatar based on anthropometric data and developed patterns for a complex activewear garment, testing and visualizing fit and tension mapping entirely in a 3D environment before physical sampling.
+                        </p>
+                        <a href="https://www.linkedin.com/in/sulan-gunawardena-485584389/" target="_blank" class="block mt-4 text-center md:text-left text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
+                    </div>
+                    
+                    <!-- Photo (Right/Bottom) -->
+                    <div class="md:w-1/4 flex-shrink-0">
+                        <img src="images/sulan.jpg" 
+                             onerror="this.src='https://placehold.co/150x150/EC4899/FFFFFF?text=SG+Photo'" 
+                             class="w-32 h-32 rounded-lg object-cover border-4 border-pink-500 mx-auto md:mx-0 md:ml-auto" 
+                             alt="Sulan Gunawardena Photo">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for handling the portfolio switching (kept local)
+        function showPortfolio(memberId) {
+            // Hide all portfolio content
+            document.querySelectorAll('.portfolio-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Show the active portfolio content
+            const el = document.getElementById(`portfolio-${memberId}`);
+            if (el) el.classList.remove('hidden');
+
+            // Use a single `active` class on buttons so styles respect dark mode
+            document.querySelectorAll('.portfolio-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+                btn.removeAttribute('aria-current');
+            });
+            const activeBtn = document.getElementById(`btn-${memberId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.setAttribute('aria-pressed', 'true');
+                activeBtn.setAttribute('aria-current', 'true');
+                // update focus for keyboard users
+                activeBtn.focus({preventScroll:true});
+            }
+
+            // Update the hash so links are shareable
+            try { window.history.replaceState(null, '', `#${memberId}`); } catch(e) { window.location.hash = memberId; }
+        }
+
+        // Check URL hash on load to show correct portfolio tab
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.substring(1); // Get hash without '#'
+            if (hash) {
+                showPortfolio(hash);
+            } else {
+                showPortfolio('dh'); // Default to Dimalka's portfolio
+            }
+        });
+    </script>
+
+    <script src="assets/theme.js"></script>
+</body>
+</html>

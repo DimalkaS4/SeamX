@@ -1,0 +1,138 @@
+:root{
+  --bg: #F9FAFB;
+  --text: #111827;
+  --card-bg: #ffffff;
+  --muted: #374151;
+  --primary-blue: #1e40af;
+  --accent-orange: #f59e0b;
+  --dark-bg: #111827;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --blue-900: #0f1724;
+
+  --orange-50: #fff7ed;
+  --blue-50: #eff6ff;
+  --emerald-50: #ecfdf5;
+  --pink-50: #fff1f2;
+
+  --orange-200: #fed7aa;
+  --blue-200: #bfdbfe;
+  --emerald-200: #bbf7d0;
+  --pink-200: #fecdd3;
+
+  --orange-500: #f97316;
+  --blue-500: #3b82f6;
+  --emerald-500: #10b981;
+  --pink-500: #ec4899;
+}
+
+.dark{
+  --bg: #0b1220;
+  --text: #e6eef6;
+  --card-bg: #0f1724;
+  --muted: #9ca3af;
+  --primary-blue: #60a5fa;
+  --accent-orange: #f59e0b;
+  --dark-bg: #0b1220;
+
+  --orange-50: #3b2415;
+  --blue-50: #0b1220;
+  --emerald-50: #062018;
+  --pink-50: #2a0a17;
+
+  --orange-200: #7c2d00;
+  --blue-200: #153e75;
+  --emerald-200: #064e3b;
+  --pink-200: #7a1735;
+
+  --orange-500: #f97316;
+  --blue-500: #60a5fa;
+  --emerald-500: #34d399;
+  --pink-500: #f472b6;
+  --gray-50: #071026;
+  --gray-100: #0b1220;
+  --gray-200: #111827;
+  --gray-700: #9ca3af;
+  --gray-800: #0b1220;
+  --blue-900: #071026;
+}
+
+/* Apply base background/text using variables */
+html, body { background-color: var(--bg) !important; color: var(--text) !important; }
+
+/* Card / surface */
+.bg-white { background-color: var(--card-bg) !important; }
+
+/* Primary colors mapped to variables */
+.text-primary-blue { color: var(--primary-blue) !important; }
+.text-secondary-gray { color: var(--muted) !important; }
+.text-accent-orange { color: var(--accent-orange) !important; }
+.text-dark-bg { color: var(--dark-bg) !important; }
+
+.bg-accent-orange { background-color: var(--accent-orange) !important; }
+.border-accent-orange { border-color: var(--accent-orange) !important; }
+.border-primary-blue { border-color: var(--primary-blue) !important; }
+
+/* Mapping common 50/bg shades used in the pages */
+.bg-orange-50 { background-color: var(--orange-50) !important; }
+.bg-blue-50 { background-color: var(--blue-50) !important; }
+.bg-emerald-50 { background-color: var(--emerald-50) !important; }
+.bg-pink-50 { background-color: var(--pink-50) !important; }
+
+/* Mapping common 200 border shades */
+.border-orange-200 { border-color: var(--orange-200) !important; }
+.border-blue-200 { border-color: var(--blue-200) !important; }
+.border-emerald-200 { border-color: var(--emerald-200) !important; }
+.border-pink-200 { border-color: var(--pink-200) !important; }
+
+/* Mapping some common text colors */
+.text-orange-700 { color: #c2410c !important; }
+.text-blue-700 { color: #1e40af !important; }
+.text-emerald-700 { color: #047857 !important; }
+.text-pink-700 { color: #be185d !important; }
+
+/* Gray / neutral mappings used across pages */
+.text-gray-800 { color: var(--gray-800) !important; }
+.text-gray-700 { color: var(--gray-700) !important; }
+.text-gray-600 { color: var(--muted) !important; }
+
+/* Gray background shades */
+.bg-gray-50 { background-color: var(--gray-50) !important; }
+.bg-gray-100 { background-color: var(--gray-100) !important; }
+.bg-gray-200 { background-color: var(--gray-200) !important; }
+.bg-gray-800 { background-color: var(--gray-800) !important; }
+.border-gray-200 { border-color: var(--gray-200) !important; }
+
+/* Helpers for gradients from/to when Tailwind utilities are used inline (best-effort)
+   These only set CSS variables used by Tailwind's gradient stops if the CDN build uses them.
+*/
+.from-orange-500 { --tw-gradient-from: var(--orange-500); }
+.to-orange-600   { --tw-gradient-to: #ea580c; }
+.from-blue-500   { --tw-gradient-from: var(--blue-500); }
+.to-blue-600     { --tw-gradient-to: #2563eb; }
+.from-emerald-500{ --tw-gradient-from: var(--emerald-500); }
+.to-emerald-600  { --tw-gradient-to: #059669; }
+.from-pink-500   { --tw-gradient-from: var(--pink-500); }
+.to-pink-600     { --tw-gradient-to: #db2777; }
+/* Gradient helpers for primary-blue and deep blue stop used in hero */
+.from-primary-blue { --tw-gradient-from: var(--primary-blue); }
+.to-blue-900 { --tw-gradient-to: var(--blue-900); }
+
+/* Support some hover: utility class names (escaped) so dark mode overrides apply */
+.dark .hover\:bg-gray-100:hover { background-color: var(--gray-100) !important; }
+.dark .hover\:bg-gray-50:hover { background-color: var(--gray-50) !important; }
+.dark .hover\:bg-gray-200:hover { background-color: var(--gray-200) !important; }
+.dark .hover\:text-primary-blue:hover { color: var(--primary-blue) !important; }
+
+/* Ensure theme-toggle button neutral background adapts */
+#theme-toggle { background-color: rgba(255,255,255,0.06); }
+.dark #theme-toggle { background-color: rgba(255,255,255,0.04); }
+
+/* Make sure images with borders can adapt (fallback) */
+img[class*="border-"] { transition: border-color 0.3s ease; }
+
+/* Small utility fallback for text-muted */
+.text-muted { color: var(--muted) !important; }

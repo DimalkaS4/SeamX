@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Team Members</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                        'pink-500': '#EC4899',
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} .member-card img{width:5.5rem;height:5.5rem;} }
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa; /* Brighter blue for contrast */
+            --color-secondary-gray: #e5e7eb; /* Light text */
+            --color-background-light: #1f2937; /* Dark background */
+            --color-accent-orange: #fbbf24; /* Brighter orange for pop */
+            --color-dark-bg: #111827;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* CSS for Smooth Page Transition */
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        
+        h1, h2, h3 {
+            animation: slideInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tab-active { 
+            background-color: var(--color-accent-orange); 
+            color: var(--color-dark-bg); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); 
+        }
+        
+        .nav-tab {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary-blue);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+        
+        .nav-tab:hover::after {
+            width: 100%;
+        }
+        
+        .nav-tab-mobile { 
+            border-left: 4px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-tab-mobile:hover {
+            transform: translateX(4px);
+        }
+        
+        .tab-active-mobile { 
+            background-color: #E5E7EB; 
+            border-left-color: var(--color-primary-blue); 
+        }
+        
+        .member-card { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .member-card:nth-child(1) { animation-delay: 0.1s; }
+        .member-card:nth-child(2) { animation-delay: 0.2s; }
+        .member-card:nth-child(3) { animation-delay: 0.3s; }
+        .member-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .member-card img {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .member-card:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        
+        .project-card { transition: all 0.3s ease-in-out; }
+        
+        .portfolio-divider { 
+            height: 3px; 
+            background-color: var(--color-accent-orange); 
+            width: 100px; 
+            margin: 1rem 0; 
+            border-radius: 9999px;
+            animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        a {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        a:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 2. INDIVIDUAL PROFILES SECTION -->
+        <section id="members">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-10">Our Team Members</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Member 1 Card: Dimalka Hettiarachchi (241083D) -->
+                <div class="member-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-accent-orange">
+                    <!-- PATH: src="images/dimalka.jpg" -->
+                    <img src="images/dimalka.jpg" 
+                         onerror="this.src='https://placehold.co/100x100/f59e0b/FFFFFF?text=DH'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-accent-orange object-cover" 
+                         alt="Dimalka Hettiarachchi Profile">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center">Dimalka Hettiarachchi</h2>
+                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241083D</p>
+                    <p class="text-primary-blue text-center font-semibold mb-3">IT Specialist</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-center text-sm">Graphic Designer, Video Editor, Web Development, UI/UX Design, Social Media Management,Fabric Enthusiast.</p>
+                    <a href="https://www.linkedin.com/in/dimalka-hettiarachchi-31844435b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
+                    <!-- Direct link to portfolios page -->
+                    <a href="portfolios.html#dh" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
+                </div>
+
+                <!-- Member 2 Card: Tuan Pallie (241051E) -->
+                <div class="member-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-primary-blue">
+                    <!-- PATH: src="images/tuan.png" -->
+                    <img src="images/tuan.png" 
+                         onerror="this.src='https://placehold.co/100x100/1e40af/FFFFFF?text=TP'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary-blue object-cover" 
+                         alt="Tuan Pallie Profile">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center">Tuan Pallie</h2>
+                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241051E</p>
+                    <p class="text-primary-blue text-center font-semibold mb-3">Business Analizer</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-center text-sm">Chess Master, Chess Coach, Entrepreneur, Fabric Enthusiast, Strategic Planning, Business Development.</p>
+                    <a href="https://www.linkedin.com/in/tuan-ehshan-pallie-1729a017b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
+                    <a href="portfolios.html#tp" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
+                </div>
+
+                <!-- Member 3 Card: Udula Bimsara (241041A) -->
+                <div class="member-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-secondary-gray">
+                    <!-- PATH: src="images/udula.jpg" -->
+                    <img src="images/udula.jpg" 
+                         onerror="this.src='https://placehold.co/100x100/374151/FFFFFF?text=UB'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-secondary-gray object-cover" 
+                         alt="Udula Bimsara Profile">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center">Udula Bimsara</h2>
+                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241041A</p>
+                    <p class="text-primary-blue text-center font-semibold mb-3">Planner</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-center text-sm">Creative minded person, Graphic Designer, Video Editor, Professional Dancer, Fabric Enthusiast</p>
+                    <a href="https://www.linkedin.com/in/udula-bimsara-95a484389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
+                    <a href="portfolios.html#ub" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
+                </div>
+
+                <!-- Member 4 Card: Sulan Gunawardena (241085K) -->
+                <div class="member-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-pink-500">
+                    <!-- PATH: src="images/sulan.jpg" -->
+                    <img src="images/sulan.jpg" 
+                         onerror="this.src='https://placehold.co/100x100/EC4899/FFFFFF?text=SG'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-pink-500 object-cover" 
+                         alt="Sulan Gunawardena Profile">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center">Sulan Gunawardena</h2>
+                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241085K</p>
+                    <p class="text-primary-blue text-center font-semibold mb-3">Data Analyzer</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-center text-sm">Problem Solver, Fabric Enthusiast, Critical Thinker, Strategic Thinker.</p>
+                    <a href="https://www.linkedin.com/in/sulan-gunawardena-485584389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
+                    <a href="portfolios.html#sg" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script src="assets/theme.js"></script>
+</body>
+</html>
