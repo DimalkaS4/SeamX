@@ -136,3 +136,262 @@ img[class*="border-"] { transition: border-color 0.3s ease; }
 
 /* Small utility fallback for text-muted */
 .text-muted { color: var(--muted) !important; }
+
+/* ============================================
+   ENHANCED INTERACTIONS & ANIMATIONS
+   ============================================ */
+
+/* Image Loading States */
+.image-loading {
+    opacity: 0.5;
+    filter: blur(5px);
+    transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.image-loaded {
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animate In Effect */
+.animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scroll to Top Button */
+#scroll-to-top {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+#scroll-to-top:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Card Hover Effects */
+.member-card,
+.project-card,
+.about-card,
+.contact-card {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+/* Loading Spinner */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Scale In Animation */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+}
+
+/* Slide In Animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+/* Gradient Animation for Hero Sections */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+}
+
+/* Focus Visible Enhancement */
+*:focus-visible {
+    outline: 3px solid var(--primary-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Selection Styling */
+::selection {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+::-moz-selection {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* Smooth Transitions for Theme Switching */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+/* Preserve specific transitions that need different timing */
+.member-card,
+.project-card,
+.about-card,
+.contact-card,
+button,
+a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Glow Effect */
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.dark .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+}
+
+/* Skeleton Loading for Content */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--gray-200) 25%,
+        var(--gray-100) 50%,
+        var(--gray-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Enhanced Mobile Touch Feedback */
+@media (hover: none) and (pointer: coarse) {
+    .member-card:active,
+    .project-card:active,
+    .about-card:active,
+    .contact-card:active,
+    button:active {
+        transform: scale(0.97);
+    }
+}
+
+/* Print Styles */
+@media print {
+    #scroll-to-top,
+    #theme-toggle,
+    #mobile-menu-button,
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .member-card,
+    .project-card,
+    .about-card,
+    .contact-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}

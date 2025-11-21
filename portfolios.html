@@ -18,6 +18,8 @@
                         'accent-orange': 'var(--color-accent-orange)',
                         'dark-bg': 'var(--color-dark-bg)', 
                         'pink-500': '#EC4899',
+                        'green-500': '#10B981',
+                        'green-600': '#059669',
                     },
                     boxShadow: {
                         'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -284,6 +286,7 @@
                 <button onclick="showPortfolio('tp')" id="btn-tp" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Tuan Pallie</button>
                 <button onclick="showPortfolio('ub')" id="btn-ub" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Udula Bimsara</button>
                 <button onclick="showPortfolio('sg')" id="btn-sg" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Sulan Gunawardena</button>
+                <button onclick="showPortfolio('dd')" id="btn-dd" class="portfolio-btn px-4 py-2 rounded-lg shadow-md transition duration-150 w-full sm:w-auto text-center" aria-pressed="false">Dinusha Dias</button>
             </div>
 
             <!-- Portfolio Content 1: Dimalka Hettiarachchi (Digital Strategy) -->
@@ -398,6 +401,34 @@
                 </div>
             </div>
 
+            <!-- Portfolio Content 5: Dinusha Dias (Quality & Testing) -->
+            <div id="portfolio-dd" class="portfolio-content hidden bg-white dark:bg-gray-800 p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
+                <h2 class="text-3xl font-bold text-green-600 mb-4">Dinusha Dias: Quality Assurance & Testing Portfolio (241XXX)</h2>
+                <div class="portfolio-divider"></div>
+                
+                <div class="flex flex-col-reverse md:flex-row gap-6 mt-6">
+                    <!-- Text Content (Left/Top) -->
+                    <div class="md:w-3/4">
+                        <p class="text-secondary-gray mb-6">
+                            **Key Skills:** Quality Control, Fabric Testing, Process Optimization, Technical Documentation, Standards Compliance.
+                        </p>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-6 mb-3">Solo Project: Textile Testing Laboratory Optimization</h3>
+                        <p class="text-sm text-secondary-gray">
+                            Developed a comprehensive quality control framework for textile testing laboratories, implementing standardized testing procedures and documentation systems that improved testing accuracy by 20% and reduced turnaround time by 30%. Created detailed technical reports on fabric performance characteristics including tensile strength, color fastness, and dimensional stability.
+                        </p>
+                        <a href="https://www.linkedin.com/in/dinusha-dias/" target="_blank" class="block mt-4 text-center md:text-left text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
+                    </div>
+                    
+                    <!-- Photo (Right/Bottom) -->
+                    <div class="md:w-1/4 flex-shrink-0">
+                        <img src="images/dinusha.jpg" 
+                             onerror="this.src='https://placehold.co/150x150/10B981/FFFFFF?text=DD+Photo'" 
+                             class="w-32 h-32 rounded-lg object-cover border-4 border-green-500 mx-auto md:mx-0 md:ml-auto" 
+                             alt="Dinusha Dias Photo">
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -451,5 +482,6 @@
     </script>
 
     <script src="assets/theme.js"></script>
+    <script src="assets/interactions.js"></script>
 </body>
 </html>
