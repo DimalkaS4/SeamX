@@ -86,7 +86,10 @@ app.post('/api/contact', (req, res) => {
 });
 
 // Get all contacts (admin endpoint - should be protected in production)
+// TODO: Add authentication middleware before deploying to production
 app.get('/api/contacts', (req, res) => {
+    // SECURITY WARNING: This endpoint is not protected and should not be exposed in production
+    // Implement authentication (JWT, API keys, or session-based auth) before deployment
     const contactsFile = path.join(dataDir, 'contacts.json');
     
     try {
