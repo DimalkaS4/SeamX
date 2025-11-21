@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Services</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} }
+        
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa;
+            --color-secondary-gray: #e5e7eb;
+            --color-background-light: #1f2937;
+            --color-accent-orange: #fbbf24;
+            --color-dark-bg: #111827;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .portfolio-divider { 
+            height: 3px; 
+            background-color: var(--color-accent-orange); 
+            width: 100px; 
+            margin: 1rem 0; 
+            border-radius: 9999px;
+            animation: scaleIn 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="about.html" class="px-3 py-2">About</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="services.html" class="px-3 py-2">Services</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Services Section -->
+        <section id="services">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Our Services & Expertise</h1>
+            <div class="portfolio-divider"></div>
+            <p class="text-lg text-secondary-gray mb-10">
+                We offer comprehensive textile engineering solutions, combining academic excellence with practical industry experience.
+            </p>
+
+            <!-- Main Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                
+                <!-- Service 1: Web Development & Digital Design -->
+                <div class="service-card bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl border-t-4 border-accent-orange">
+                    <div class="text-5xl mb-4">💻</div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Web Development & UI/UX</h2>
+                    <p class="text-secondary-gray mb-4">
+                        Professional website design and development with modern frameworks. We create responsive, accessible, and visually stunning web experiences.
+                    </p>
+                    <ul class="text-sm text-secondary-gray space-y-2">
+                        <li>✓ Custom Website Development</li>
+                        <li>✓ UI/UX Design & Prototyping</li>
+                        <li>✓ Responsive Design</li>
+                        <li>✓ Brand Identity Design</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2: Textile Research & Development -->
+                <div class="service-card bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl border-t-4 border-primary-blue">
+                    <div class="text-5xl mb-4">🔬</div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Textile R&D</h2>
+                    <p class="text-secondary-gray mb-4">
+                        Cutting-edge research in biomaterials, sustainable textiles, and innovative manufacturing processes.
+                    </p>
+                    <ul class="text-sm text-secondary-gray space-y-2">
+                        <li>✓ Material Science Research</li>
+                        <li>✓ Sustainable Textile Development</li>
+                        <li>✓ Chemical Processing Innovation</li>
+                        <li>✓ Performance Testing & Analysis</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3: Business Analytics & Strategy -->
+                <div class="service-card bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl border-t-4 border-green-500">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Business Analytics</h2>
+                    <p class="text-secondary-gray mb-4">
+                        Strategic planning and data-driven insights for textile and apparel businesses.
+                    </p>
+                    <ul class="text-sm text-secondary-gray space-y-2">
+                        <li>✓ Market Research & Analysis</li>
+                        <li>✓ Process Optimization</li>
+                        <li>✓ Supply Chain Strategy</li>
+                        <li>✓ Performance Metrics</li>
+                    </ul>
+                </div>
+
+                <!-- Service 4: Quality Assurance -->
+                <div class="service-card bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl border-t-4 border-pink-500">
+                    <div class="text-5xl mb-4">✅</div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Quality Assurance</h2>
+                    <p class="text-secondary-gray mb-4">
+                        Comprehensive quality control and testing services for textile products and processes.
+                    </p>
+                    <ul class="text-sm text-secondary-gray space-y-2">
+                        <li>✓ Fabric Testing & Evaluation</li>
+                        <li>✓ Quality Management Systems</li>
+                        <li>✓ Standards Compliance</li>
+                        <li>✓ Technical Documentation</li>
+                    </ul>
+                </div>
+
+                <!-- Service 5: Digital Pattern Making -->
+                <div class="service-card bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl border-t-4 border-purple-500">
+                    <div class="text-5xl mb-4">📐</div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Digital Pattern Making</h2>
+                    <p class="text-secondary-gray mb-4">
+                        Advanced 3D design and virtual prototyping for apparel development and fit optimization.
+                    </p>
+                    <ul class="text-sm text-secondary-gray space-y-2">
+                        <li>✓ 3D Virtual Prototyping</li>
+                        <li>✓ Pattern Design & Grading</li>
+                        <li>✓ Fit Analysis & Optimization</li>
+                        <li>✓ Technical Drawings</li>
+                    </ul>
+                </div>
+
+                <!-- Service 6: Consulting & Training -->
+                <div class="service-card bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl border-t-4 border-indigo-500">
+                    <div class="text-5xl mb-4">🎓</div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Consulting & Training</h2>
+                    <p class="text-secondary-gray mb-4">
+                        Expert consultation and training programs for textile industry professionals and students.
+                    </p>
+                    <ul class="text-sm text-secondary-gray space-y-2">
+                        <li>✓ Industry Consultation</li>
+                        <li>✓ Workshops & Seminars</li>
+                        <li>✓ Skills Development</li>
+                        <li>✓ Process Auditing</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Why Work With Us?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="bg-gradient-to-r from-blue-500 to-primary-blue p-6 rounded-xl shadow-xl text-white">
+                        <h3 class="text-xl font-bold mb-3">🎯 Multidisciplinary Expertise</h3>
+                        <p class="text-sm opacity-90">
+                            Our team brings together diverse skills from IT, chemistry, business, quality assurance, and design, offering comprehensive solutions.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-accent-orange to-orange-600 p-6 rounded-xl shadow-xl text-white">
+                        <h3 class="text-xl font-bold mb-3">🚀 Innovation-Driven</h3>
+                        <p class="text-sm opacity-90">
+                            We stay at the forefront of textile technology, constantly exploring new materials, methods, and digital tools.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-xl shadow-xl text-white">
+                        <h3 class="text-xl font-bold mb-3">🌱 Sustainability Focus</h3>
+                        <p class="text-sm opacity-90">
+                            Environmental responsibility is central to our work, ensuring eco-friendly and sustainable solutions.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-6 rounded-xl shadow-xl text-white">
+                        <h3 class="text-xl font-bold mb-3">💼 Academic Excellence</h3>
+                        <p class="text-sm opacity-90">
+                            Backed by rigorous academic training from the University of Moratuwa, combining theory with practical experience.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="bg-gradient-to-br from-primary-blue to-blue-900 p-8 sm:p-12 rounded-3xl shadow-2xl text-white text-center">
+                <h2 class="text-3xl font-bold mb-4">Ready to Collaborate?</h2>
+                <p class="text-lg mb-6 opacity-90">
+                    Let's work together to bring your textile and apparel projects to life with innovative solutions.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="contact.html" class="bg-accent-orange text-dark-bg font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-yellow-500 transition duration-300 transform hover:scale-105">
+                        Get In Touch
+                    </a>
+                    <a href="projects.html" class="bg-white text-primary-blue font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-gray-200 transition duration-300 transform hover:scale-105">
+                        View Our Work
+                    </a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/interactions.js"></script>
+</body>
+</html>

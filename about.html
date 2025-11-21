@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | About Us</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} }
+        
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa;
+            --color-secondary-gray: #e5e7eb;
+            --color-background-light: #1f2937;
+            --color-accent-orange: #fbbf24;
+            --color-dark-bg: #111827;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        
+        h1, h2, h3 {
+            animation: slideInDown 0.6s ease-out;
+        }
+        
+        .about-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .about-card:nth-child(1) { animation-delay: 0.1s; }
+        .about-card:nth-child(2) { animation-delay: 0.2s; }
+        .about-card:nth-child(3) { animation-delay: 0.3s; }
+        
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .portfolio-divider { 
+            height: 3px; 
+            background-color: var(--color-accent-orange); 
+            width: 100px; 
+            margin: 1rem 0; 
+            border-radius: 9999px;
+            animation: scaleIn 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="about.html" class="px-3 py-2">About</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- About Section -->
+        <section id="about">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">About SeamX</h1>
+            <div class="portfolio-divider"></div>
+            
+            <!-- Mission Statement -->
+            <div class="bg-gradient-to-br from-primary-blue to-blue-900 p-8 sm:p-12 rounded-3xl shadow-2xl text-white mb-12">
+                <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+                <p class="text-lg leading-relaxed">
+                    SeamX is a dynamic team of five undergraduate engineers from the Department of Textile & Apparel Engineering at the University of Moratuwa. We are committed to revolutionizing the textile industry through innovative research, sustainable practices, and cutting-edge technology. Our mission is to bridge the gap between academic excellence and real-world industrial applications, creating solutions that are both environmentally responsible and economically viable.
+                </p>
+            </div>
+
+            <!-- Our Story -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Our Story</h2>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-xl">
+                    <p class="text-lg text-secondary-gray mb-4">
+                        Founded in 2024, SeamX emerged from a shared passion for textile innovation and sustainable manufacturing. What started as a group of like-minded engineering students collaborating on academic projects has evolved into a comprehensive initiative focused on pushing the boundaries of textile technology.
+                    </p>
+                    <p class="text-lg text-secondary-gray mb-4">
+                        Our team brings together diverse expertise spanning digital design, business analytics, chemical processing, quality assurance, and technical documentation. This multidisciplinary approach enables us to tackle complex challenges in the textile industry from multiple angles, ensuring comprehensive and innovative solutions.
+                    </p>
+                    <p class="text-lg text-secondary-gray">
+                        Through our entrepreneurial venture "STUD Designs," we're not just theorizing about the future of textiles—we're actively building it, one innovative product at a time.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Our Values -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Our Core Values</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Value 1: Innovation -->
+                    <div class="about-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-accent-orange">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">Innovation</h3>
+                        <p class="text-secondary-gray">
+                            We constantly push boundaries, exploring new materials, processes, and technologies to create breakthrough solutions in textile engineering.
+                        </p>
+                    </div>
+
+                    <!-- Value 2: Sustainability -->
+                    <div class="about-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-primary-blue">
+                        <div class="text-4xl mb-4">🌱</div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">Sustainability</h3>
+                        <p class="text-secondary-gray">
+                            Environmental responsibility is at the heart of everything we do. We develop eco-friendly solutions that minimize waste and maximize efficiency.
+                        </p>
+                    </div>
+
+                    <!-- Value 3: Excellence -->
+                    <div class="about-card bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl border-t-4 border-secondary-gray">
+                        <div class="text-4xl mb-4">⭐</div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">Excellence</h3>
+                        <p class="text-secondary-gray">
+                            We maintain the highest standards in our academic pursuits, research initiatives, and entrepreneurial ventures, always striving for exceptional quality.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- What We Do -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">What We Do</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Activity 1 -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl">
+                        <h3 class="text-xl font-bold text-primary-blue mb-3">Research & Development</h3>
+                        <p class="text-secondary-gray">
+                            We conduct cutting-edge research in biomaterials, sustainable textiles, and innovative manufacturing processes. Our work on spider silk biopolymers and natural dye valorization demonstrates our commitment to next-generation materials.
+                        </p>
+                    </div>
+
+                    <!-- Activity 2 -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl">
+                        <h3 class="text-xl font-bold text-accent-orange mb-3">Entrepreneurship</h3>
+                        <p class="text-secondary-gray">
+                            Through STUD Designs, we transform academic knowledge into market-ready products. We design, develop, and market high-quality apparel that combines style with sustainable manufacturing practices.
+                        </p>
+                    </div>
+
+                    <!-- Activity 3 -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl">
+                        <h3 class="text-xl font-bold text-primary-blue mb-3">Digital Innovation</h3>
+                        <p class="text-secondary-gray">
+                            We leverage digital tools for design, prototyping, and marketing. From 3D virtual fitting to comprehensive web development, we bridge traditional textile engineering with modern technology.
+                        </p>
+                    </div>
+
+                    <!-- Activity 4 -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-xl">
+                        <h3 class="text-xl font-bold text-accent-orange mb-3">Quality Assurance</h3>
+                        <p class="text-secondary-gray">
+                            We implement rigorous quality control frameworks and testing procedures to ensure that every product and process meets the highest industry standards for performance and reliability.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- University Partnership -->
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-xl text-center">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Proudly Representing</h2>
+                <p class="text-xl text-primary-blue font-semibold mb-2">Department of Textile & Apparel Engineering</p>
+                <p class="text-lg text-secondary-gray">University of Moratuwa, Sri Lanka</p>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/interactions.js"></script>
+</body>
+</html>
