@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamX | Gallery</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': 'var(--color-primary-blue)', 
+                        'secondary-gray': 'var(--color-secondary-gray)', 
+                        'background-light': 'var(--color-background-light)',
+                        'accent-orange': 'var(--color-accent-orange)',
+                        'dark-bg': 'var(--color-dark-bg)', 
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Accessibility: skip link and focus styles + mobile tweaks */
+        .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: #111827; color: #fff; z-index: 60; border-radius: .375rem; }
+        :focus-visible { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 3px; }
+        @media (max-width:640px) { h1{font-size:1.6rem;} h2{font-size:1.15rem;} .max-w-7xl{padding-left:1rem;padding-right:1rem;} }
+        
+        :root {
+            /* Light Mode Colors */
+            --color-primary-blue: #1e40af;
+            --color-secondary-gray: #374151;
+            --color-background-light: #F9FAFB;
+            --color-accent-orange: #f59e0b;
+            --color-dark-bg: #111827;
+        }
+        [data-theme='dark'] {
+            /* Dark Mode Colors */
+            --color-primary-blue: #60a5fa;
+            --color-secondary-gray: #e5e7eb;
+            --color-background-light: #1f2937;
+            --color-accent-orange: #fbbf24;
+            --color-dark-bg: #111827;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .animated-page {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background-light); 
+            color: var(--color-secondary-gray);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        
+        .gallery-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.5s ease-out forwards;
+            opacity: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .gallery-item img {
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-divider { 
+            height: 3px; 
+            background-color: var(--color-accent-orange); 
+            width: 100px; 
+            margin: 1rem 0; 
+            border-radius: 9999px;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: scaleIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-page bg-background-light text-secondary-gray">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header and Navigation (injected) -->
+    <div id="site-header" data-include="includes/header.html"></div>
+    <script>
+        (function(){
+            var container = document.getElementById('site-header');
+            var fallback = '<header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">'
+                + '<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">'
+                + '<div class="text-xl font-extrabold text-primary-blue">SeamX</div>'
+                + '<nav class="hidden md:flex space-x-4">'
+                + '<a href="index.html" class="px-3 py-2">Homepage</a>'
+                + '<a href="about.html" class="px-3 py-2">About</a>'
+                + '<a href="members.html" class="px-3 py-2">Team Members</a>'
+                + '<a href="projects.html" class="px-3 py-2">Group Projects</a>'
+                + '<a href="portfolios.html" class="px-3 py-2">Portfolios</a>'
+                + '<a href="gallery.html" class="px-3 py-2">Gallery</a>'
+                + '<a href="contact.html" class="px-3 py-2">Contact</a>'
+                + '</nav>'
+                + '</div></header>';
+
+            fetch('includes/header.html').then(function(r){ if(!r.ok) throw new Error('no'); return r.text(); }).then(function(html){
+                container.innerHTML = html;
+            }).catch(function(){
+                container.innerHTML = fallback;
+            });
+        })();
+    </script>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Photo Gallery</h1>
+            <div class="portfolio-divider"></div>
+            <p class="text-lg text-secondary-gray mb-10">
+                Moments captured from our journey - team activities, achievements, and milestone moments.
+            </p>
+
+            <!-- Team Photos Section -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Team Moments</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item bg-white dark:bg-gray-700 rounded-xl shadow-xl" onclick="openModal('images/group_photo.png')">
+                        <div class="relative h-64 overflow-hidden rounded-t-xl">
+                            <img src="images/group_photo.png" 
+                                 onerror="this.src='https://placehold.co/600x400/1e40af/FFFFFF?text=Team+Photo'" 
+                                 class="w-full h-full object-cover" 
+                                 alt="Team Group Photo">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">Team SeamX</h3>
+                            <p class="text-sm text-secondary-gray">Our complete team photo</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item bg-white dark:bg-gray-700 rounded-xl shadow-xl" onclick="openModal('images/STUD-cover.png')">
+                        <div class="relative h-64 overflow-hidden rounded-t-xl">
+                            <img src="images/STUD-cover.png" 
+                                 onerror="this.src='https://placehold.co/600x400/f59e0b/FFFFFF?text=STUD+Designs'" 
+                                 class="w-full h-full object-cover" 
+                                 alt="STUD Designs Brand">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">STUD Designs</h3>
+                            <p class="text-sm text-secondary-gray">Our entrepreneurial brand launch</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item bg-white dark:bg-gray-700 rounded-xl shadow-xl" onclick="openModal('images/STUD-logo.jpg')">
+                        <div class="relative h-64 overflow-hidden rounded-t-xl bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
+                            <img src="images/STUD-logo.jpg" 
+                                 onerror="this.src='https://placehold.co/400x200/374151/FFFFFF?text=STUD+Logo'" 
+                                 class="max-w-full max-h-full object-contain p-4" 
+                                 alt="STUD Designs Logo">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">Brand Identity</h3>
+                            <p class="text-sm text-secondary-gray">STUD Designs logo design</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 - Placeholder for future -->
+                    <div class="gallery-item bg-white dark:bg-gray-700 rounded-xl shadow-xl">
+                        <div class="relative h-64 overflow-hidden rounded-t-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                            <div class="text-center text-white p-6">
+                                <div class="text-6xl mb-4">🎓</div>
+                                <p class="text-xl font-bold">Workshop 2024</p>
+                                <p class="text-sm opacity-80 mt-2">Coming Soon</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">Textile Workshop</h3>
+                            <p class="text-sm text-secondary-gray">Industry collaboration event</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 - Placeholder -->
+                    <div class="gallery-item bg-white dark:bg-gray-700 rounded-xl shadow-xl">
+                        <div class="relative h-64 overflow-hidden rounded-t-xl bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center">
+                            <div class="text-center text-white p-6">
+                                <div class="text-6xl mb-4">🏆</div>
+                                <p class="text-xl font-bold">Competition Win</p>
+                                <p class="text-sm opacity-80 mt-2">Spider Silk Project</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">Award Ceremony</h3>
+                            <p class="text-sm text-secondary-gray">Materials Science Competition</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 - Placeholder -->
+                    <div class="gallery-item bg-white dark:bg-gray-700 rounded-xl shadow-xl">
+                        <div class="relative h-64 overflow-hidden rounded-t-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                            <div class="text-center text-white p-6">
+                                <div class="text-6xl mb-4">🎨</div>
+                                <p class="text-xl font-bold">Design Sprint</p>
+                                <p class="text-sm opacity-80 mt-2">Behind the Scenes</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">Design Process</h3>
+                            <p class="text-sm text-secondary-gray">Creative brainstorming session</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Achievements Banner -->
+            <div class="bg-gradient-to-r from-primary-blue to-blue-900 p-8 rounded-xl shadow-2xl text-white text-center">
+                <h2 class="text-3xl font-bold mb-4">🎯 Our Achievements</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div>
+                        <div class="text-4xl font-bold">15+</div>
+                        <div class="text-sm opacity-90">Research Projects</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold">2</div>
+                        <div class="text-sm opacity-90">Industry Partnerships</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold">1</div>
+                        <div class="text-sm opacity-90">Startup Launch</div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Modal for Full-Size Images -->
+    <div id="imageModal" class="modal-overlay" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalImage" src="" alt="Full size image" class="max-w-full max-h-full rounded-lg">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-bg text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            &copy; 2025 SeamX - University of Moratuwa T&A Group. | Created by Dimalka Hettiarachchi
+        </div>
+    </footer>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/interactions.js"></script>
+</body>
+</html>
